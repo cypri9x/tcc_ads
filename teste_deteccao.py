@@ -1,6 +1,6 @@
 import cv2
 
-classificador = cv2.CascadeClassifier('classificadores\haarcascade_frontalface_default.xml')
+classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
 
 imagem = cv2.imread('./imagens/pessoas2.jpg') 
 imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
