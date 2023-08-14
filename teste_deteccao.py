@@ -17,8 +17,7 @@ print(len(facesDetectadas))
 print(facesDetectadas)
 
 for (x,y,l,a) in facesDetectadas:
-    #cv2.rectangle(imagem, (x,y), (x+l, y + a), (0,255,255),2)
-    cv2.rectangle(imagem, (x,y), (x+1, y + 1), (0,255,255),2)
+    cv2.rectangle(imagem, (x,y), (x+l, y + a), (0,255,255),2)
 
 cv2.imshow("Faces Encontradas", imagem)
 cv2.waitKey()
