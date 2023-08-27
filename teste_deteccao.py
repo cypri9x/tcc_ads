@@ -65,7 +65,7 @@ while True:
         centro_y = y + a // 2
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
-        threading.Thread(target=set_angle_x,args={lado_movimento_x,})
+        set_angle_x(lado_movimento_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
