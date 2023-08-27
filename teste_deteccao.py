@@ -23,25 +23,34 @@ pwm_y = GPIO.PWM(12,50)
 pwm_x.start(0)
 pwm_y.start(0)
 
-
 def set_angle_x(v):
+    global angle_x
+
     if v>0:
         angle_x += 5
+    else:
+        angle_x -= 5
     if angle_x > 360:
         angle_x = 360 - angle_x
+    if angle_x < 0:
+        angle_x = angle_x + 360
     duty_cycle = (angle_x/18)+2
     pwm_x.ChangeDutyCycle(duty_cycle)
     time.sleep(0.5)
 
 def set_angle_y(v):
+    global angle_y
     if v>0:
         angle_y += 5
+    else:
+        angle_y -= 5
     if angle_y > 360:
         angle_y = 360 - angle_y
+    if angle_y < 0:
+        angle_y = angle_y + 360
     duty_cycle = (angle_y/18)+2
     pwm_y.ChangeDutyCycle(duty_cycle)
     time.sleep(0.5)
-
 
 while True:
     conectado, imagem = video.read()
