@@ -28,11 +28,11 @@ def set_angle_x(v):
     global angle_x
 
     if v>0:
-        angle_x += 5
+        angle_x += 20
     else:
-        angle_x -= 5
+        angle_x -= 20
     if angle_x > 100:
-        angle_x = 100 - angle_x
+        angle_x = angle_x - 100
     if angle_x < 0:
         angle_x = angle_x + 100
     #duty_cycle = (angle_x/18)+2
@@ -41,19 +41,7 @@ def set_angle_x(v):
     pwm_x.ChangeDutyCycle(duty_cycle)
     time.sleep(1)
 
-def set_angle_y(v):
-    global angle_y
-    if v>0:
-        angle_y += 5
-    else:
-        angle_y -= 5
-    if angle_y > 360:
-        angle_y = 360 - angle_y
-    if angle_y < 0:
-        angle_y = angle_y + 360
-    duty_cycle = (angle_y/18)+2
-    pwm_y.ChangeDutyCycle(duty_cycle)
-    time.sleep(1)
+
 
 while True:
     conectado, imagem = video.read()
