@@ -26,14 +26,15 @@ pwm_y.start(0)
 
 def set_angle_x(v):
     global angle_x
+    angle = 0
 
     if v>0:
-        angle_x = 12
+        angle = 12
     else:
-        angle_x = 0
-    duty_cycle = angle_x
-    print(duty_cycle)
-    pwm_x.ChangeDutyCycle(duty_cycle)
+        angle = 0
+    if angle_x != angle:
+        pwm_x.ChangeDutyCycle(angle)
+        angle_x = angle
     time.sleep(1)
 
 
