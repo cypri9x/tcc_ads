@@ -17,8 +17,8 @@ classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT)
-GPIO.setup(12,GPIO.OUT)
 pwm_x = GPIO.PWM(11,50)
+GPIO.setup(12,GPIO.OUT)
 pwm_y = GPIO.PWM(12,50)
 
 pwm_x.start(0)
