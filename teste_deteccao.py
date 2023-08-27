@@ -36,7 +36,7 @@ def set_angle_x(v):
         angle_x = angle_x + 360
     duty_cycle = (angle_x/18)+2
     pwm_x.ChangeDutyCycle(duty_cycle)
-    time.sleep(0.5)
+    time.sleep(1)
 
 def set_angle_y(v):
     global angle_y
@@ -50,7 +50,7 @@ def set_angle_y(v):
         angle_y = angle_y + 360
     duty_cycle = (angle_y/18)+2
     pwm_y.ChangeDutyCycle(duty_cycle)
-    time.sleep(0.5)
+    time.sleep(1)
 
 while True:
     conectado, imagem = video.read()
