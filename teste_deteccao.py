@@ -28,14 +28,9 @@ def set_angle_x(v):
     global angle_x
 
     if v>0:
-        angle_x += 20
+        angle_x = 100
     else:
-        angle_x -= 20
-    if angle_x > 100:
-        angle_x = angle_x - 100
-    if angle_x < 0:
-        angle_x = angle_x + 100
-    #duty_cycle = (angle_x/18)+2
+        angle_x = 50
     duty_cycle = angle_x
     print(duty_cycle)
     pwm_x.ChangeDutyCycle(duty_cycle)
