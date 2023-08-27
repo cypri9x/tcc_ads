@@ -36,6 +36,7 @@ def set_angle_x(v):
     if angle_x < 0:
         angle_x = angle_x + 360
     duty_cycle = (angle_x/18)+2
+    print(duty_cycle)
     pwm_x.ChangeDutyCycle(duty_cycle)
     time.sleep(1)
 
