@@ -24,20 +24,15 @@ pwm_y = GPIO.PWM(12,50)
 pwm_x.start(0)
 pwm_y.start(0)
 
-def set_angle_x(v):
+def set_angle_x(angle):
     global angle_x
-    angle = 0
 
-    if v>0:
-        angle = 12
-    else:
-        angle = 2
     if angle_x != angle:
         pwm_x.ChangeDutyCycle(angle)
         time.sleep(0.5)
         pwm_x.ChangeDutyCycle(0)
         angle_x = angle
-        time.sleep(2)   
+        time.sleep(1)   
 
 
 
