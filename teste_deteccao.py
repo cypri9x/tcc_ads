@@ -26,6 +26,7 @@ pwm_y.start(0)
 
 def set_angle_x(angle):
     global angle_x
+    angle = angle % 100.0
 
     if angle_x != angle:
         pwm_x.ChangeDutyCycle(angle)
