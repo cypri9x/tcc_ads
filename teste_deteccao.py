@@ -48,17 +48,12 @@ def set_angle_x(angle):
         time.sleep(1)     
 
 def teste_loop():
-    global angle_x
-    global mul
-    if angle_x >= 100:
-        mul = -1
-    elif angle_x <=0:
-        mul = 1
-    angle_x += mul  # Incremento de 5 graus a cada iteração
-    angle_x = angle_x % 100  # Limitar o ângulo entre 0 e 359 graus
-
-    pwm_x.ChangeDutyCycle(angle_x)  # Configurar o ângulo do motor
-    time.sleep(0.1)
+    for dc in range(0, 101, 5):
+        pwm_x.ChangeDutyCycle(dc)
+        time.sleep(0.1)
+    for dc in range(100, -1, -5):
+        pwm_x.ChangeDutyCycle(dc)
+        time.sleep(0.1)
 
 while True:
     teste_loop()
