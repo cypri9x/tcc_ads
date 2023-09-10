@@ -37,29 +37,13 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
-    global angle_x
     angle = angle * 12.0
+    pwm_x.ChangeDutyCycle(int(angle))
+    time.sleep(0.5)
 
-    if angle_x != angle:
-        pwm_x.ChangeDutyCycle(angle)
-        time.sleep(0.5)
-        pwm_x.ChangeDutyCycle(0)
-        angle_x = angle
-        time.sleep(1)     
 
-def teste_loop():
-    for dc in range(0, 6, 1):
-        pwm_x.ChangeDutyCycle(dc)
-        time.sleep(0.1)
-    for dc in range(5, -1, -1):
-        pwm_x.ChangeDutyCycle(dc)
-        time.sleep(0.1)
 
 while True:
-    teste_loop()
-
-while True:
-    teste_loop()
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
     
@@ -72,7 +56,7 @@ while True:
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
         
-        #set_angle_x(lado_movimento_x)
+        set_angle_x(lado_movimento_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
