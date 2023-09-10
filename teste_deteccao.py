@@ -26,8 +26,7 @@ pwm_y.start(0)
 
 def set_angle_backup(angle):
     global angle_x
-    angle = angle % 180.0
-    angle = angle * 12 / 180
+    angle = angle * 12
 
     if angle_x != angle:
         pwm_x.ChangeDutyCycle(angle)
