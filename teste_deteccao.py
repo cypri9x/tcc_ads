@@ -8,6 +8,7 @@ width = 640
 height = 480
 angle_x = 0
 angle_y = 0
+mul = -1
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
@@ -48,13 +49,15 @@ def set_angle_x(angle):
 
 def teste_loop():
     global angle_x
-    angle_x += 5  # Incremento de 5 graus a cada iteração
-    angle_x = angle_x % 360  # Limitar o ângulo entre 0 e 359 graus
+    if angle_x >= 100:
+        mul = -1
+    elif angle_x <=0:
+        mul = 1
+    angle_x += mul  # Incremento de 5 graus a cada iteração
+    angle_x = angle_x % 100  # Limitar o ângulo entre 0 e 359 graus
 
     pwm_x.ChangeDutyCycle(angle_x)  # Configurar o ângulo do motor
     time.sleep(1)
-    pwm_x.ChangeDutyCycle(0)
-    time.sleep(0.5)
 
 
 while True:
