@@ -39,7 +39,10 @@ def set_angle_backup(angle):
 def set_angle_x(angle):
     global angle_x
     angle = angle * 12.0
+    if angle <= 2.0:
+        angle = 2.0
     if angle_x == int(angle):
+        pwm_x.ChangeDutyCycle(0)
         return
     angle_x = int(angle)
     pwm_x.ChangeDutyCycle(angle_x)
