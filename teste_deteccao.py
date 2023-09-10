@@ -51,6 +51,9 @@ def teste_loop():
     angle_x =+ 1
     pwm_x.ChangeDutyCycle(angle_x)
     time.sleep(0.5)
+    pwm_x.ChangeDutyCycle(angle_x+1)
+    time.sleep(1)
+
 
 while True:
     teste_loop()
