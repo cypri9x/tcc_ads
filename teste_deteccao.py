@@ -37,8 +37,7 @@ def set_angle_backup(angle):
 
 def set_angle_x(angle):
     global angle_x
-    angle = angle * 180.0
-    angle = angle * 12 / 180
+    angle = angle * 12.0
 
     if angle_x != angle:
         pwm_x.ChangeDutyCycle(angle)
@@ -60,7 +59,7 @@ while True:
         centro_y = y + a // 2
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
-        lado_movimento_x = centro_x // width
+        lado_movimento_x = float(centro_x) / float(width)
         set_angle_x(lado_movimento_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
