@@ -50,6 +50,8 @@ def teste_loop():
     global angle_x
     angle_x =+ 1
     angle_x = angle_x % 17
+    if angle_x < 2:
+        angle_x = 2
     pwm_x.ChangeDutyCycle(angle_x)
     time.sleep(1)
 
