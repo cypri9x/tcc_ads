@@ -48,10 +48,10 @@ def set_angle_x(angle):
         time.sleep(1)     
 
 def teste_loop():
-    for dc in range(0, 101, 5):
+    for dc in range(0, 51, 5):
         pwm_x.ChangeDutyCycle(dc)
         time.sleep(0.1)
-    for dc in range(100, -1, -5):
+    for dc in range(50, -1, -5):
         pwm_x.ChangeDutyCycle(dc)
         time.sleep(0.1)
 
