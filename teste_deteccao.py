@@ -56,6 +56,7 @@ def teste_loop():
 
 
 while True:
+    teste_loop()
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
     
@@ -67,6 +68,7 @@ while True:
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
+        
         #set_angle_x(lado_movimento_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
