@@ -49,8 +49,9 @@ def set_angle_x(angle):
 def teste_loop():
     global angle_x
     angle_x =+ 1
-    pwm_x.set_pwm(15,0,100)
-    time.sleep(0.5)
+    angle_x = angle_x % 17
+    pwm_x.ChangeDutyCycle(angle_x)
+    time.sleep(1)
 
 
 while True:
