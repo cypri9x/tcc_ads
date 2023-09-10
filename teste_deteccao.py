@@ -54,7 +54,7 @@ def teste_loop():
     pwm_x.ChangeDutyCycle(angle_x)  # Configurar o ângulo do motor
     time.sleep(1)
     pwm_x.ChangeDutyCycle(0)
-    time.slee(0.5)
+    time.sleep(0.5)
 
 
 while True:
