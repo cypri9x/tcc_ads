@@ -24,7 +24,7 @@ pwm_y = GPIO.PWM(12,50)
 pwm_x.start(0)
 pwm_y.start(0)
 
-def set_angle_x(angle):
+def set_angle_backup(angle):
     global angle_x
     angle = angle % 180.0
     angle = angle * 12 / 180
@@ -34,7 +34,19 @@ def set_angle_x(angle):
         time.sleep(0.5)
         pwm_x.ChangeDutyCycle(0)
         angle_x = angle
-        time.sleep(1)   
+        time.sleep(1)
+
+def set_angle_x(angle):
+    global angle_x
+    angle = angle * 180.0
+    angle = angle * 12 / 180
+
+    if angle_x != angle:
+        pwm_x.ChangeDutyCycle(angle)
+        time.sleep(0.5)
+        pwm_x.ChangeDutyCycle(0)
+        angle_x = angle
+        time.sleep(1)     
 
 
 
@@ -49,6 +61,7 @@ while True:
         centro_y = y + a // 2
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
+        lado_movimento_x = centro_x // width
         set_angle_x(lado_movimento_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
