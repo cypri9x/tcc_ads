@@ -49,6 +49,7 @@ def set_angle_x(angle):
 
 def teste_loop():
     global angle_x
+    global mul
     if angle_x >= 100:
         mul = -1
     elif angle_x <=0:
