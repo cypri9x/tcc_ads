@@ -6,8 +6,8 @@ import threading
 
 width = 640
 height = 480
-angle_x = 0
-angle_y = 0
+angle_x = 0.0
+angle_y = 0.0
 mul = -1
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
@@ -38,17 +38,18 @@ def set_angle_backup(angle):
 
 def set_angle_x(angle):
     global angle_x
+    factor = 0.1
     if angle < 0.4:
-        angle_x  += 1
+        angle_x  += factor
     elif angle > 0.6:
-        angle_x -= 1
+        angle_x -= factor
     else:
         return
-    if angle_x > 12:
-        angle_x = 12
-    elif angle_x < 2:
-        angle_x = 2
-    pwm_x.ChangeDutyCycle(angle_x)
+    if angle_x > 12.0:
+        angle_x = 12.0
+    elif angle_x < 2.0:
+        angle_x = 2.0
+    pwm_x.ChangeDutyCycle(int(angle_x))
     time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
 
