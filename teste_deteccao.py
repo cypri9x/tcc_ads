@@ -73,8 +73,9 @@ while True:
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
-        thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
-        thread_run.start()
+        set_angle_x(lado_movimento_x)
+        #thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
+        #thread_run.start()
         pwm_x.ChangeDutyCycle(angle_x)
         time.sleep(0.01)
         pwm_x.ChangeDutyCycle(0)
