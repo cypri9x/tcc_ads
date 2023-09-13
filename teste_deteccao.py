@@ -40,6 +40,7 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
+    global running
     if running:
         return
 
