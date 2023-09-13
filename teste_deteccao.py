@@ -76,6 +76,8 @@ while True:
         thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
         thread_run.start()
         pwm_x.ChangeDutyCycle(angle_x)
+        time.sleep(0.1)
+        pwm_x.ChangeDutyCycle(0)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
