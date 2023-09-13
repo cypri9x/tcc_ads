@@ -80,8 +80,6 @@ while True:
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
-        
-        set_angle_x(lado_movimento_x)
         threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
