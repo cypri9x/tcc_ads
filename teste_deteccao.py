@@ -49,7 +49,7 @@ def set_angle_x(angle):
         angle_x = 12.0
     elif angle_x < 2.0:
         angle_x = 2.0
-    pwm_x.ChangeDutyCycle(int(angle_x))
+    pwm_x.ChangeDutyCycle(angle_x)
     time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
 
