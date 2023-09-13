@@ -73,8 +73,8 @@ while True:
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
-        x = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
-        x.start()
+        thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
+        thread_run.start()
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
