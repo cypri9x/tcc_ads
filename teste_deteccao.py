@@ -47,7 +47,7 @@ def set_angle_x(angle):
         elif angle > 0.55:
             angle_x -= factor
         else:
-            pwm_x.ChangeDutyCycle(0)
+            #pwm_x.ChangeDutyCycle(0)
             return
         if angle_x > 12.0:
             angle_x = 12.0
