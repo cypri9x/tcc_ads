@@ -38,7 +38,7 @@ def set_angle_backup(angle):
 
 def set_angle_x(angle):
     global angle_x
-    factor = abs(angle)
+    factor = 0.5 - abs(angle)
     if angle < 0.4:
         angle_x  += factor
     elif angle > 0.6:
