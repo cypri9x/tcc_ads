@@ -39,24 +39,23 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
-    mutex.acquire()
-    global angle_x
-    factor = abs(angle - 0.5)
-    if angle < 0.45:
-        angle_x  += factor
-    elif angle > 0.55:
-        angle_x -= factor
-    else:
-        return
-    if angle_x > 12.0:
-        angle_x = 12.0
-    elif angle_x < 2.0:
-        angle_x = 2.0
-    pwm_x.ChangeDutyCycle(angle_x)
-    time.sleep(0.1)
-    pwm_x.ChangeDutyCycle(0)
-    time.sleep(0.1)
-    mutex.release()
+    with mutex:
+        global angle_x
+        factor = abs(angle - 0.5)
+        if angle < 0.45:
+            angle_x  += factor
+        elif angle > 0.55:
+            angle_x -= factor
+        else:
+            return
+        if angle_x > 12.0:
+            angle_x = 12.0
+        elif angle_x < 2.0:
+            angle_x = 2.0
+        pwm_x.ChangeDutyCycle(angle_x)
+        time.sleep(0.1)
+        pwm_x.ChangeDutyCycle(0)
+        time.sleep(0.1)
 
 
 
