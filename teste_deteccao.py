@@ -10,6 +10,8 @@ angle_x = 0.0
 angle_y = 0.0
 mul = -1
 
+mutex = threading.Lock()
+
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
 video.set(cv2.CAP_PROP_FRAME_WIDTH,width)
@@ -37,6 +39,8 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
+    mutex.acquire()
+
     global angle_x
     factor = abs(angle - 0.5) * 2.0 * 2.0
     if angle < 0.45:
@@ -53,6 +57,8 @@ def set_angle_x(angle):
     time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
     time.sleep(0.1)
+    
+    mutex.release()
 
 
 
@@ -71,6 +77,7 @@ while True:
         lado_movimento_x = float(centro_x) / float(width)
         
         set_angle_x(lado_movimento_x)
+        threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
