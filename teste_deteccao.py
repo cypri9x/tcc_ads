@@ -26,7 +26,7 @@ pwm_y.start(0)
 def set_angle_x(angle):
     #with mutex:
     global angle_x
-    factor = 0.1 #abs(angle - 0.5)
+    factor = abs(angle - 0.5)
     if angle < 0.45:
         angle_x  += factor
     elif angle > 0.55:
