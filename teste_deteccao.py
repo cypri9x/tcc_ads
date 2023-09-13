@@ -40,10 +40,6 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
-    global running
-    if running:
-        return
-
     mutex.acquire()
     running = True
     global angle_x
@@ -62,7 +58,6 @@ def set_angle_x(angle):
     time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
     time.sleep(0.1)
-    running = False
     mutex.release()
 
 
