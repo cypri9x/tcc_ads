@@ -1,16 +1,12 @@
 import cv2
 import time
 import RPi.GPIO as GPIO
-import threading
-
 
 width = 640
 height = 480
 angle_x = 0.0
 angle_y = 0.0
 mul = -1
-
-mutex = threading.Lock()
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
@@ -26,17 +22,6 @@ pwm_y = GPIO.PWM(12,50)
 
 pwm_x.start(0)
 pwm_y.start(0)
-
-def set_angle_backup(angle):
-    global angle_x
-    angle = angle * 12
-
-    if angle_x != angle:
-        pwm_x.ChangeDutyCycle(angle)
-        time.sleep(0.5)
-        pwm_x.ChangeDutyCycle(0)
-        angle_x = angle
-        time.sleep(1)
 
 def set_angle_x(angle):
     #with mutex:
