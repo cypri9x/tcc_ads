@@ -42,7 +42,7 @@ def set_angle_x(angle):
     mutex.acquire()
 
     global angle_x
-    factor = abs(angle - 0.5) * 2.0 * 2.0
+    factor = abs(angle - 0.5)
     if angle < 0.45:
         angle_x  += factor
     elif angle > 0.55:
