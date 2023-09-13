@@ -9,6 +9,7 @@ height = 480
 angle_x = 0.0
 angle_y = 0.0
 mul = -1
+running = False
 
 mutex = threading.Lock()
 
@@ -39,7 +40,11 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
+    global running
+    if running:
+        return
     with mutex:
+        running = True
         global angle_x
         factor = 0.1 #abs(angle - 0.5)
         if angle < 0.45:
@@ -57,6 +62,7 @@ def set_angle_x(angle):
         #time.sleep(0.2)
         #pwm_x.ChangeDutyCycle(0)
         #time.sleep(0.1)
+        running = False
 
 
 
@@ -73,9 +79,8 @@ while True:
         lado_movimento_x = centro_x - width // 2
         lado_movimento_y = centro_y - height // 2
         lado_movimento_x = float(centro_x) / float(width)
-        set_angle_x(lado_movimento_x)
-        #thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
-        #thread_run.start()
+        thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
+        thread_run.start()
         pwm_x.ChangeDutyCycle(angle_x)
         time.sleep(0.01)
         pwm_x.ChangeDutyCycle(0)
