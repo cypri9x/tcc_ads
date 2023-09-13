@@ -9,6 +9,7 @@ height = 480
 angle_x = 0.0
 angle_y = 0.0
 mul = -1
+running = False
 
 mutex = threading.Lock()
 
@@ -39,8 +40,11 @@ def set_angle_backup(angle):
         time.sleep(1)
 
 def set_angle_x(angle):
-    mutex.acquire()
+    if running:
+        return
 
+    mutex.acquire()
+    running = True
     global angle_x
     factor = abs(angle - 0.5)
     if angle < 0.45:
@@ -57,7 +61,7 @@ def set_angle_x(angle):
     time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
     time.sleep(0.1)
-    
+    running = False
     mutex.release()
 
 
