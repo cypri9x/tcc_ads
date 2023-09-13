@@ -53,9 +53,9 @@ def set_angle_x(angle):
             angle_x = 12.0
         elif angle_x < 2.0:
             angle_x = 2.0
-        pwm_x.ChangeDutyCycle(angle_x)
-        time.sleep(0.2)
-        pwm_x.ChangeDutyCycle(0)
+        #pwm_x.ChangeDutyCycle(angle_x)
+        #time.sleep(0.2)
+        #pwm_x.ChangeDutyCycle(0)
         #time.sleep(0.1)
 
 
@@ -75,6 +75,7 @@ while True:
         lado_movimento_x = float(centro_x) / float(width)
         thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
         thread_run.start()
+        pwm_x.ChangeDutyCycle(angle_x)
         #set_angle_y(lado_movimento_y)
         print(lado_movimento_x,",",lado_movimento_y)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
