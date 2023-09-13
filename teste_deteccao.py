@@ -38,10 +38,12 @@ def set_angle_backup(angle):
 
 def set_angle_x(angle):
     global angle_x
-    if angle < 0.5:
+    if angle > 0.6:
         angle_x  += 1
-    else:
+    elif angle < 0.4:
         angle_x -= 1
+    else:
+        return
     if angle_x > 12:
         angle_x = 12
     elif angle_x < 2:
