@@ -17,7 +17,7 @@ p = GPIO.PWM(11, 50)
 p.start(0)
 
 def move_motor_smoothly(start, end, duration):
-    steps = 100
+    steps = 100.0
     step_size = (end - start) / steps
     delay = duration / steps
     for _ in range(steps):
@@ -46,6 +46,7 @@ def set_angle_x(angle):
     move_motor_smoothly(move_x, angle, 1.0)
     move_x = angle    
 
+p.ChangeDutyCycle(2.0)
 while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
