@@ -22,7 +22,7 @@ classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface
 
 def set_angle_x(angle):
     global move_x
-    if 0.4 <= angle <= 0.6:
+    if 0.45 <= angle <= 0.55:
         return
     angle = (2 * angle) - 1
     angle = angle * 10
@@ -54,7 +54,7 @@ def set_angle_y(angle):
         return
 
     servo.angle = move_y
-    time.sleep(0.01)
+    time.sleep(0.1)
 
 while True:
     conectado, imagem = video.read()
