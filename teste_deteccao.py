@@ -23,19 +23,30 @@ pwm_y = GPIO.PWM(12,50)
 pwm_x.start(0)
 pwm_y.start(0)
 
+def move_motor_smoothly(start, end, duration):
+    steps = 100
+    step_size = (end - start) / float(steps)
+    delay = duration / steps
+    for _ in range(steps):
+        start += step_size
+        p.ChangeDutyCycle(start)
+        time.sleep(delay)
+    pwm_x.ChangeDutyCycle(0)
+
 def set_angle_x(angle):
     if 0.45 <= angle <= 0.55:
         return
     global angle_x
     angle = (2 * angle) - 1
-    angle_x += -angle * 0.5
-    if angle_x > 100.0:
-        angle_x = 100.0
-    elif angle_x < 0.0:
-        angle_x = 0.0
-    pwm_x.ChangeDutyCycle(int(angle_x))
-    time.sleep(0.05)
-    pwm_x.ChangeDutyCycle(0)
+    angle = -angle * 0.5
+    angle += angle_x
+    if angle > 100.0:
+        angle = 100.0
+    elif angle < 0.0:
+        angle = 0.0
+    move_motor_smoothly(angle_x, angle, 0.1)
+    angle_x = angle
+    
 
 
 
