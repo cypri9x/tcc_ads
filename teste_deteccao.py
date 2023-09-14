@@ -24,12 +24,19 @@ def move_motor_smoothly(start, end, duration):
         p.ChangeDutyCycle(start)
         time.sleep(delay)
 
-def set_angle_x(angle):
+def set_angle_x_bkp(angle):
     if 0.45 <= angle <= 0.55:
         return
     angle = max(0.0, min(1.0, angle))
     angle = 2.0 + angle * 10.0
     move_motor_smoothly(angle, angle * 10.0, 1.0)
+
+def set_angle_x(angle):
+    if 0.45 <= angle <= 0.55:
+        return
+    angle = max(0.0, min(1.0, angle))
+    angle = 2.0 + angle * 10.0
+    move_motor_smoothly(0, angle * 10.0, 1.0)    
 
 while True:
     conectado, imagem = video.read()
