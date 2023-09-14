@@ -24,7 +24,7 @@ def set_angle_x(angle):
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = angle * 20
+    angle = angle * 5
     
     move_x += int(angle)
     if move_x >= 180 or move_x <= 0:
