@@ -24,23 +24,19 @@ pwm_x.start(0)
 pwm_y.start(0)
 
 def set_angle_x(angle):
-    #with mutex:
-    global angle_x
-    factor = abs(angle - 0.5)
-    if angle < 0.45:
-        angle_x  += factor
-    elif angle > 0.55:
-        angle_x -= factor
-    else:
-        #pwm_x.ChangeDutyCycle(0)
+    if angle < 0.45 or angle > 0.55:
         return
-    if angle_x > 12.0:
-        angle_x = 12.0
-    elif angle_x < 2.0:
-        angle_x = 2.0
-    pwm_x.ChangeDutyCycle(angle_x)
+    global angle_x
+    angle = (2 * angle) - 1
+    angle += angle_x
+    if angle > 12.0:
+        angle = 12.0
+    elif angle < 2.0:
+        angle = 2.0
+    pwm_x.ChangeDutyCycle(angle)
     time.sleep(0.05)
     pwm_x.ChangeDutyCycle(0)
+    angle_x = angle
 
 
 
