@@ -28,6 +28,10 @@ def set_angle_x(angle):
     
     move_x += int(angle)
     if move_x >= 180 or move_x <= 0:
+        move_x = 180
+        return
+    elif move_x <= 0:
+        move_x = 0  
         return
 
     servo.angle = move_x
