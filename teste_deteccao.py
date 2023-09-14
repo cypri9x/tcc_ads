@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(18, min_angle=0, max_angle=180, initial_angle=90, min_pulse_width=0.5/1000.0, max_pulse_width=2.5/1000.0)
+servo = AngularServo(18, min_angle=0, max_angle=180, initial_angle=0, min_pulse_width=0.5/1000.0, max_pulse_width=2.5/1000.0)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
