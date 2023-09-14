@@ -1,13 +1,6 @@
 import cv2
-from gpiozero import AngularServo
 import time
-
-# Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=0)
-
-# Ajuste para um movimento mais rápido e suave
-step = 5
-delay = 0.01
+import RPi.GPIO as GPIO
 
 width = 320
 height = 240
@@ -18,6 +11,26 @@ video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11, GPIO.OUT)
+p = GPIO.PWM(11, 50)
+p.start(0)
+
+def move_motor_smoothly(start, end, duration):
+    steps = 100
+    step_size = (end - start) / float(steps)
+    delay = duration / steps
+    for _ in range(steps):
+        start += step_size
+        p.ChangeDutyCycle(start)
+        time.sleep(delay)
+
+def set_angle_x_bkp(angle):
+    if 0.45 <= angle <= 0.55:
+        return
+    angle = max(0.0, min(1.0, angle))
+    angle = 2.0 + angle * 10.0
+    move_motor_smoothly(angle, angle * 10.0, 1.0)
 
 def set_angle_x(angle):
     global move_x
@@ -25,15 +38,13 @@ def set_angle_x(angle):
         return
     angle = (2 * angle) - 1
     angle = angle * 0.2
-    
-    move_x += angle
-    if move_x >= 180.0:
-        servo.angle = 180
-    elif move_x <= 0.0:
-        servo.angle = 0  
-
-    servo.angle = int(move_x)
-    time.sleep(0.01)
+    angle += move_x
+    if angle > 12.0:
+        angle = 12.0
+    elif angle < 2.0:
+        angle = 2.0
+    move_motor_smoothly(move_x, angle, 1.0)
+    move_x = angle    
 
 p.ChangeDutyCycle(2.0)
 while True:
@@ -60,4 +71,5 @@ while True:
 video.release()
 cv2.destroyAllWindows()
 
-servo.close()
+p.stop()
+GPIO.cleanup()
