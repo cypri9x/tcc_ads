@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(18, min_angle=0, max_angle=269, initial_angle=90)
+servo = AngularServo(18, min_angle=0, max_angle=269)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
@@ -43,7 +43,7 @@ def set_angle_y(angle):
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = -angle * 10
+    angle = -angle * 5
     
     move_y += int(angle)
     if move_y >= 180 or move_y <= 0:
