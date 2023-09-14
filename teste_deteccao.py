@@ -36,10 +36,15 @@ def set_angle_x(angle):
     global move_x
     if 0.45 <= angle <= 0.55:
         return
-    angle = max(0.0, min(1.0, angle))
+    angle = (2 * angle) - 1
     angle = 2.0 + angle * 2.0
-    move_motor_smoothly(move_x, move_x + angle, 1.0)
-    move_x += angle    
+    angle += move_x
+    if angle > 12.0:
+        angle = 12.0
+    elif angle < 2.0:
+        angle = 2.0
+    move_motor_smoothly(move_x, angle, 1.0)
+    move_x = angle    
 
 while True:
     conectado, imagem = video.read()
