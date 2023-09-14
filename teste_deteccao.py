@@ -45,7 +45,8 @@ def set_angle_x(angle):
         angle = 2.0
     p.ChangeDutyCycle(int(angle))
     time.sleep(0.1)
-    move_x = angle    
+    move_x = angle   
+    p.ChangeDutyCycle(0) 
 
 while True:
     conectado, imagem = video.read()
