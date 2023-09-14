@@ -12,8 +12,8 @@ video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(12, GPIO.OUT)
-p = GPIO.PWM(12, 50)
+GPIO.setup(11, GPIO.OUT)
+p = GPIO.PWM(11, 50)
 p.start(0)
 
 def move_motor_smoothly(start, end, duration):
@@ -37,7 +37,7 @@ def set_angle_x(angle):
     if 0.45 <= angle <= 0.55:
         return
     angle = (2 * angle) - 1
-    angle = angle * 0.2
+    angle = angle * 2.0
     angle += move_x
     if angle > 100.0:
         angle = 100.0
