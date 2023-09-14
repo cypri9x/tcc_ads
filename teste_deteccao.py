@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=0)
+servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=90)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
@@ -21,10 +21,10 @@ classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface
 
 def set_angle_x(angle):
     global move_x
-    if 0.45 <= angle <= 0.55:
+    if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = angle * 0.2
+    angle = angle * 5
     
     move_x += angle
     if move_x >= 180.0:
@@ -34,7 +34,7 @@ def set_angle_x(angle):
 
     servo.angle = int(move_x)
     time.sleep(0.01)
-    
+
 while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
