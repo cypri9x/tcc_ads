@@ -1,69 +1,64 @@
 import cv2
-from gpiozero import AngularServo
 import time
+import RPi.GPIO as GPIO
 
-# Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(17, min_angle=-180, max_angle=0)
-
-# Ajuste para um movimento mais rápido e suave
-step = 5
-delay = 0.01
-
-width = 640
-height = 480
-move_x = -90
-move_y = -90
+width = 320
+height = 240
+move_x = 0.0
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
 
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11, GPIO.OUT)
+p = GPIO.PWM(11, 50)
+p.start(0)
+
+def move_motor_smoothly(start, end, duration):
+    steps = 100
+    step_size = (end - start) / float(steps)
+    delay = duration / steps
+    for _ in range(steps):
+        start += step_size
+        p.ChangeDutyCycle(start)
+        time.sleep(delay)
+
+def set_angle_x_bkp(angle):
+    if 0.45 <= angle <= 0.55:
+        return
+    angle = max(0.0, min(1.0, angle))
+    angle = 2.0 + angle * 10.0
+    move_motor_smoothly(angle, angle * 10.0, 1.0)
 
 def set_angle_x(angle):
     global move_x
     if 0.45 <= angle <= 0.55:
         return
     angle = (2 * angle) - 1
-    angle = angle * 10
-    
-    move_x += int(angle)
-    if move_x >= 180:
-        move_x = 180
-        return
-    elif move_x <= 0:
-        move_x = 0  
-        return
-
-    servo.angle = move_x
-    time.sleep(0.01)
-
-def set_angle_y(angle):
-    global move_y
-    if 0.4 <= angle <= 0.6:
-        return
-    angle = (2 * angle) - 1
-    angle = angle * 5
-    
-    move_y += int(angle)
-
-    servo.angle = move_y
-    time.sleep(0.01)
+    angle = angle * 0.2
+    angle += move_x
+    if angle > 100.0:
+        angle = 100.0
+    elif angle < 0.0:
+        angle = 0.0
+    p.ChangeDutyCycle(angle)
+    time.sleep(0.1)
+    move_x = angle    
 
 while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 
-    facesDetectadas = classificador.detectMultiScale(imagemCinza, scaleFactor=1.3, minNeighbors=5)
+    facesDetectadas = classificador.detectMultiScale(imagemCinza)
     if len(facesDetectadas) > 0:
         x, y, l, a = facesDetectadas[0]
         centro_x = x + l // 2
         centro_y = y + a // 2
         lado_movimento_x = centro_x - width // 2
         lado_movimento_x = float(lado_movimento_x) / float(width)
-        lado_movimento_y = centro_y - height // 2
-        lado_movimento_y = float(lado_movimento_y) / float(height)
-        set_angle_y(lado_movimento_y)
+        set_angle_x(lado_movimento_x)
 
         print(lado_movimento_x)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
@@ -76,4 +71,5 @@ while True:
 video.release()
 cv2.destroyAllWindows()
 
-servo.close()
+p.stop()
+GPIO.cleanup()
