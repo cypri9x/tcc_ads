@@ -24,7 +24,7 @@ def set_angle_x(angle):
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = angle * 5
+    angle = angle * 10
     
     move_x += int(angle)
     if move_x >= 180 or move_x <= 0:
@@ -41,7 +41,7 @@ while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 
-    facesDetectadas = classificador.detectMultiScale(imagemCinza)
+    facesDetectadas = classificador.detectMultiScale(imagemCinza, scaleFactor=1.3, minNeighbors=5)
     if len(facesDetectadas) > 0:
         x, y, l, a = facesDetectadas[0]
         centro_x = x + l // 2
