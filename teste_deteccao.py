@@ -34,8 +34,7 @@ def set_angle_x(angle):
 
     servo.angle = int(move_x)
     time.sleep(0.01)
-
-p.ChangeDutyCycle(2.0)
+    
 while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
