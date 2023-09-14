@@ -2,8 +2,12 @@ import cv2
 from gpiozero import AngularServo
 import time
 
+from gpiozero.pins.pigpio import PiGPIOFactory
+
+factory = PiGPIOFactory()
+
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=90)
+servo = AngularServo(11, min_angle=0, max_angle=180, initial_angle=90, min_pulse_width=0.5/1000.0, max_pulse_width=2.5/1000.0, pin_factory=factory)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
