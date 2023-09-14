@@ -45,7 +45,7 @@ def set_angle_y(angle):
     angle = (2 * angle) - 1
     angle = angle * 2
     
-    move_y += int(-angle)
+    move_y += int(angle)
     if move_y >= 180 or move_y <= 0:
         move_y = 180
         return
