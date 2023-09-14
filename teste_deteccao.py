@@ -60,7 +60,7 @@ while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 
-    facesDetectadas = classificador.detectMultiScale(imagemCinza, scaleFactor=1.0, minNeighbors=3)
+    facesDetectadas = classificador.detectMultiScale(imagemCinza)
     if len(facesDetectadas) > 0:
         x, y, l, a = facesDetectadas[0]
         centro_x = x + l // 2
