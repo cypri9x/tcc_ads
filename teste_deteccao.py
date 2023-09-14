@@ -46,12 +46,6 @@ def set_angle_y(angle):
     angle = angle * 5
     
     move_y += int(angle)
-    if move_y >= 180:
-        move_y = 180
-        return
-    elif move_y <= 0:
-        move_y = 0  
-        return
 
     servo.angle = move_y
     time.sleep(0.01)
