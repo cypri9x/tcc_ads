@@ -24,7 +24,7 @@ pwm_x.start(0)
 pwm_y.start(0)
 
 def set_angle_x(angle):
-    if angle > 0.45 and angle < 0.55:
+    if 0.45 <= angle <= 0.55:
         return
     global angle_x
     angle = (2 * angle) - 1
