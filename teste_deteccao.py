@@ -11,7 +11,7 @@ delay = 0.01
 
 width = 320
 height = 240
-move_x = 0.0
+move_x = 90.0
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
