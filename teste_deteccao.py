@@ -37,12 +37,12 @@ def set_angle_x(angle):
     if 0.45 <= angle <= 0.55:
         return
     angle = (2 * angle) - 1
-    angle = angle * 2.0
+    angle = angle * 10.0
     angle += move_x
     if angle > 100.0:
         angle = 100.0
-    elif angle < 0.0:
-        angle = 0.0
+    elif angle < 2.0:
+        angle = 2.0
     p.ChangeDutyCycle(int(angle))
     time.sleep(0.1)
     move_x = angle    
