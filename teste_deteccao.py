@@ -29,7 +29,7 @@ def move_motor_smoothly(start, end, duration):
     delay = duration / steps
     for _ in range(steps):
         start += step_size
-        p.ChangeDutyCycle(start)
+        pwm_x.ChangeDutyCycle(start)
         time.sleep(delay)
     pwm_x.ChangeDutyCycle(0)
 
