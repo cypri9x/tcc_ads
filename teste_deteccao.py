@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(18, min_angle=0, max_angle=180)
+servo = AngularServo(17, min_angle=0, max_angle=180)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
@@ -69,7 +69,7 @@ while True:
         lado_movimento_x = float(lado_movimento_x) / float(width)
         lado_movimento_y = centro_y - height // 2
         lado_movimento_y = float(lado_movimento_y) / float(height)
-        set_angle_y(lado_movimento_y)
+        set_angle_x(lado_movimento_y)
 
         print(lado_movimento_x)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
