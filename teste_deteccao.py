@@ -28,9 +28,9 @@ def set_angle_x(angle):
     
     move_x += angle
     if move_x >= 180.0:
-        servo.angle = 180
+        move_x = 180
     elif move_x <= 0.0:
-        servo.angle = 0  
+        move_x = 0  
 
     servo.angle = int(move_x)
     time.sleep(0.01)
