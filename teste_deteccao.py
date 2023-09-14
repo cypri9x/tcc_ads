@@ -48,7 +48,7 @@ def set_angle_x(angle):
         angle = 100.0
     elif angle < 0.0:
         angle = 0.0
-    move_motor_smoothly(angle_x, angle, 0.1)
+    move_motor_smoothly(angle_x, angle, 0.01)
     angle_x = angle
     
 
