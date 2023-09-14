@@ -37,7 +37,7 @@ def set_angle_x(angle):
     if 0.45 <= angle <= 0.55:
         return
     angle = (2 * angle) - 1
-    angle = 2.0 + angle * 2.0
+    angle = angle * 0.2
     angle += move_x
     if angle > 12.0:
         angle = 12.0
