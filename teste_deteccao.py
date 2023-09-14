@@ -28,7 +28,7 @@ def set_angle_x(angle):
     angle = angle * 10
     
     move_x += int(angle)
-    if move_x >= 180 or move_x <= 0:
+    if move_x >= 180:
         move_x = 180
         return
     elif move_x <= 0:
@@ -46,7 +46,7 @@ def set_angle_y(angle):
     angle = angle * 5
     
     move_y += int(angle)
-    if move_y >= 180 or move_y <= 0:
+    if move_y >= 180:
         move_y = 180
         return
     elif move_y <= 0:
@@ -54,7 +54,7 @@ def set_angle_y(angle):
         return
 
     servo.angle = move_y
-    time.sleep(0.5)
+    time.sleep(0.01)
 
 while True:
     conectado, imagem = video.read()
