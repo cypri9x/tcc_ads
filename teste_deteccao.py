@@ -4,6 +4,7 @@ import RPi.GPIO as GPIO
 
 width = 320
 height = 240
+move_x = 0.0
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -32,11 +33,13 @@ def set_angle_x_bkp(angle):
     move_motor_smoothly(angle, angle * 10.0, 1.0)
 
 def set_angle_x(angle):
+    global move_x
     if 0.45 <= angle <= 0.55:
         return
     angle = max(0.0, min(1.0, angle))
     angle = 2.0 + angle * 10.0
-    move_motor_smoothly(0, angle * 10.0, 1.0)    
+    move_motor_smoothly(move_x, angle, 1.0)
+    move_x += angle    
 
 while True:
     conectado, imagem = video.read()
