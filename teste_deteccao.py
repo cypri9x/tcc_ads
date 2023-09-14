@@ -28,7 +28,7 @@ def set_angle_x(angle):
         return
     global angle_x
     angle = (2 * angle) - 1
-    angle_x += -angle * 10
+    angle_x += -angle * 2
     if angle_x > 12.0:
         angle_x = 12.0
     elif angle_x < 2.0:
