@@ -1,85 +1,25 @@
-import cv2
+from gpiozero import AngularServo
 import time
-import RPi.GPIO as GPIO
 
-width = 220
-height = 140
-angle_x = 0.0
-angle_y = 0.0
-mul = -1
+# Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
+servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=0)
 
-video = cv2.VideoCapture(0, cv2.CAP_V4L)
-video.set(cv2.CAP_PROP_FRAME_HEIGHT,height)
-video.set(cv2.CAP_PROP_FRAME_WIDTH,width)
-classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
-#classificadorOlhos = cv2.CascadeClassifier('./classificadores/haarcascade_eye.xml')
+# Ajuste para um movimento mais rápido e suave
+step = 5
+delay = 0.01
 
-GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11,GPIO.OUT)
-pwm_x = GPIO.PWM(11,50)
-GPIO.setup(12,GPIO.OUT)
-pwm_y = GPIO.PWM(12,50)
+try:
+    while True:
+        # Suavemente interpole o movimento do servo para o ângulo desejado
+        servo.angle += step
 
-pwm_x.start(0)
-pwm_y.start(0)
+        if servo.angle >= 180 or servo.angle <= 0:
+            step = -step  # Inverte a direção ao atingir os limites
 
-def set_angle_x(angle):
-    #with mutex:
-    global angle_x
-    factor = abs(angle - 0.5)
-    if angle < 0.45:
-        angle_x  += factor
-    elif angle > 0.55:
-        angle_x -= factor
-    else:
-        #pwm_x.ChangeDutyCycle(0)
-        return
-    if angle_x > 12.0:
-        angle_x = 12.0
-    elif angle_x < 2.0:
-        angle_x = 2.0
-    pwm_x.ChangeDutyCycle(angle_x)
-    time.sleep(0.05)
-    pwm_x.ChangeDutyCycle(0)
+        time.sleep(delay)
 
+except KeyboardInterrupt:
+    pass
 
-
-
-
-while True:
-    conectado, imagem = video.read()
-    imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
-    
-    facesDetectadas = classificador.detectMultiScale(imagemCinza)
-    if len(facesDetectadas) > 0:
-        x,y,l,a = facesDetectadas[0]
-        centro_x = x + l // 2
-        centro_y = y + a // 2
-        lado_movimento_x = centro_x - width // 2
-        lado_movimento_y = centro_y - height // 2
-        lado_movimento_x = float(centro_x) / float(width)
-        #thread_run = threading.Thread(target=set_angle_x, args=(lado_movimento_x,))
-        #thread_run.start()
-        set_angle_x(lado_movimento_x)
-    
-        #set_angle_y(lado_movimento_y)
-        print(lado_movimento_x,",",lado_movimento_y)
-        cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
-    
-    #for (x, y, l, a) in facesDetectadas:
-        #regiao = imagem[y:y + a, x:x + l]
-        #regiaoCinzaOlho = cv2.cvtColor(regiao, cv2.COLOR_BGR2GRAY)
-        #olhosDetectados = classificadorOlhos.detectMultiScale(regiaoCinzaOlho)
-        
-        #for (ox, oy, o1, oa) in olhosDetectados:
-            #cv2.rectangle(regiao, (ox, oy), (ox + o1, oy + oa), (0, 0, 255), 2)
-        
-        #cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
-        
-    cv2.imshow("Faces encontradas", imagem)
-    
-    if cv2.waitKey(1) == ord('q'):
-        break
-
-video.release()
-cv2.destroyAllWindows()
+# Certifique-se de liberar o servo ao final do programa
+servo.close()
