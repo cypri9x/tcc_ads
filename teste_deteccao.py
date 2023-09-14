@@ -9,8 +9,8 @@ servo = AngularServo(17, min_angle=0, max_angle=180, initial_angle=90)
 step = 5
 delay = 0.01
 
-width = 320
-height = 240
+width = 640
+height = 480
 move_x = 90
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
