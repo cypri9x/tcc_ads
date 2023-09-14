@@ -11,7 +11,6 @@ delay = 0.01
 
 width = 320
 height = 240
-move_x = 90
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -20,19 +19,17 @@ classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface
 
 
 def set_angle_x(angle):
-    global move_x
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = angle * 20
+    angle = angle * 20.0
     
-    move_x += int(angle)
-    if move_x >= 180:
-        move_x = 180
-    elif move_x <= 0:
-        move_x = 0  
+    servo.angle += int(angle)
+    if servo.angle >= 180:
+        servo.angle = 180
+    elif servo.angle <= 0:
+        servo.angle = 0  
 
-    servo.angle = move_x
     time.sleep(0.01)
 
 while True:
