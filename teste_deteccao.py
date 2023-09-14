@@ -12,8 +12,8 @@ video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
 classificador = cv2.CascadeClassifier('./classificadores/haarcascade_frontalface_default.xml')
 
 GPIO.setmode(GPIO.BOARD)
-GPIO.setup(11, GPIO.OUT)
-p = GPIO.PWM(11, 50)
+GPIO.setup(12, GPIO.OUT)
+p = GPIO.PWM(12, 50)
 p.start(0)
 
 def move_motor_smoothly(start, end, duration):
