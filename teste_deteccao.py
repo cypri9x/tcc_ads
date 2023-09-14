@@ -43,7 +43,7 @@ def set_angle_y(angle):
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = -angle * 5
+    angle = angle * 5
     
     move_y += int(angle)
     if move_y >= 180 or move_y <= 0:
@@ -69,7 +69,7 @@ while True:
         lado_movimento_x = float(lado_movimento_x) / float(width)
         lado_movimento_y = centro_y - height // 2
         lado_movimento_y = float(lado_movimento_y) / float(height)
-        set_angle_x(lado_movimento_y)
+        set_angle_y(lado_movimento_y)
 
         print(lado_movimento_x)
         cv2.rectangle(imagem, (x, y), (x + l, y + a), (0, 255, 255), 2)
