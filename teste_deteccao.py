@@ -17,8 +17,8 @@ p = GPIO.PWM(11, 50)
 p.start(0)
 
 def move_motor_smoothly(start, end, duration):
-    steps = 100.0
-    step_size = (end - start) / steps
+    steps = 100
+    step_size = (end - start) / float(steps)
     delay = duration / steps
     for _ in range(steps):
         start += step_size
