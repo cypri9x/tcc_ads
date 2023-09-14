@@ -39,7 +39,7 @@ def set_angle_x(angle):
     angle = max(0.0, min(1.0, angle))
     angle = 2.0 + angle * 10.0
     move_motor_smoothly(move_x, angle, 1.0)
-    move_x += angle    
+    move_x = angle    
 
 while True:
     conectado, imagem = video.read()
