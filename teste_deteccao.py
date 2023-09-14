@@ -11,7 +11,7 @@ delay = 0.01
 
 width = 320
 height = 240
-move_x = 90.0
+move_x = 90
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
@@ -26,13 +26,13 @@ def set_angle_x(angle):
     angle = (2 * angle) - 1
     angle = angle * 20
     
-    move_x += angle
-    if move_x >= 180.0:
+    move_x += int(angle)
+    if move_x >= 180:
         move_x = 180
-    elif move_x <= 0.0:
+    elif move_x <= 0:
         move_x = 0  
 
-    servo.angle = int(move_x)
+    servo.angle = move_x
     time.sleep(0.01)
 
 while True:
