@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(17, min_angle=0, max_angle=180)
+servo = AngularServo(17, min_angle=-180, max_angle=0)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
@@ -11,8 +11,8 @@ delay = 0.01
 
 width = 640
 height = 480
-move_x = 90
-move_y = 90
+move_x = -90
+move_y = -90
 
 video = cv2.VideoCapture(0, cv2.CAP_V4L)
 video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
