@@ -3,7 +3,7 @@ from gpiozero import AngularServo
 import time
 
 # Conecte o servo angular à porta GPIO 17 (ou outra porta de sua escolha)
-servo = AngularServo(18, min_angle=0, max_angle=180, initial_angle=0, min_pulse_width=0.5/1000.0, max_pulse_width=2.5/1000.0)
+servo = AngularServo(18, min_angle=0, max_angle=180, initial_angle=90, min_pulse_width=0.5/1000.0, max_pulse_width=2.5/1000.0)
 
 # Ajuste para um movimento mais rápido e suave
 step = 5
@@ -43,7 +43,7 @@ def set_angle_y(angle):
     if 0.4 <= angle <= 0.6:
         return
     angle = (2 * angle) - 1
-    angle = angle * 1
+    angle = angle * 2
     
     move_y += int(angle)
     if move_y >= 180 or move_y <= 0:
@@ -60,7 +60,7 @@ while True:
     conectado, imagem = video.read()
     imagemCinza = cv2.cvtColor(imagem, cv2.COLOR_BGR2GRAY)
 
-    facesDetectadas = classificador.detectMultiScale(imagemCinza)
+    facesDetectadas = classificador.detectMultiScale(imagemCinza, scaleFactor=1.0, minNeighbors=3)
     if len(facesDetectadas) > 0:
         x, y, l, a = facesDetectadas[0]
         centro_x = x + l // 2
