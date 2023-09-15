@@ -34,12 +34,8 @@ def set_angle_x(angle):
     elif angle_x < 0.0:
         angle_x = 0.0
     pwm_x.ChangeDutyCycle(int(angle_x))
-    time.sleep(0.05)
+    time.sleep(0.1)
     pwm_x.ChangeDutyCycle(0)
-
-
-
-
 
 while True:
     conectado, imagem = video.read()
